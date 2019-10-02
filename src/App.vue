@@ -1,23 +1,29 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+ <div id="main">
+    <maoyanhead></maoyanhead>
+    <keep-alive>
+      <!-- keep-alive 缓存组件提高性能 -->
     <router-view/>
-  </div>
+    </keep-alive>
+   
+   <div id="content">
+    <tabBar></tabBar>
+    </div>
+   </div>
 </template>
 
 <script>
+import header from './components/Header'
+import tabBar from './components/TabBar'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+   'maoyanhead':header,
+   tabBar
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
