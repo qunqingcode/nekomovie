@@ -7,10 +7,11 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path:'/',redirect:'/movie'},
+    
     movieRouter,
     mineRouter,
-    cinemaRouter 
+    cinemaRouter,
+    {path:'/*',redirect:'/movie'}//当上面的都不匹配的时候就跳转到movie
   ],
   linkActiveClass:"activecolor"
 })

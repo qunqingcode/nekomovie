@@ -1,12 +1,14 @@
 <template>
    <header id="header">
-			<h1>nekomovie</h1>
+			<h1>{{title}}</h1>
 		</header>
 </template>
 
 <script>
 export default {
-    name:'Header'
+    name:'Header',
+    props:['title']
+    
 }
 </script>
 
