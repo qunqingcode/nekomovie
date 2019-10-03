@@ -103,7 +103,7 @@ export default {
 .city_body .city_list{ flex:1; overflow: auto; background: #FFF5F0;}
 .city_body .city_list::-webkit-scrollbar{
     background-color:transparent;
-    width:0;
+	width:0;
 }
 .city_body .city_hot{ margin-top: 20px;}
 .city_body .city_hot h2{ padding-left: 15px; line-height: 30px; font-size: 14px; background:#F0F0F0; font-weight: normal;}

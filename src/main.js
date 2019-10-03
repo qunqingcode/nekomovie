@@ -8,7 +8,9 @@ import axios from 'axios'
 import vueaxios from 'vue-axios'
 Vue.use(vueaxios,axios)
 Vue.config.productionTip = false
-
+Vue.filter('setWH',(url,arg)=>{
+  return url.replace(/w\.h/,arg)
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

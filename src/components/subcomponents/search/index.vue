@@ -3,37 +3,78 @@
 				<div class="search_input">
 					<div class="search_input_wrapper">
 						<i class="iconfont icon-sousuo"></i>
-						<input type="text">
+						<input type="text" v-model="message">
 					</div>					
 				</div>
 				<div class="search_result">
 					<h3>电影/电视剧/综艺</h3>
 					<ul>
-						<li>
-							<div class="img"><img src="images/movie_1.jpg"></div>
+						<li v-for="item in moviesList" :key="item.id">
+							<div class="img"><img :src="item.img | setWH('128.180')"></div>
 							<div class="info">
-								<p><span>无名之辈</span><span>8.5</span></p>
-								<p>A Cool Fish</p>
-								<p>剧情,喜剧,犯罪</p>
-								<p>2018-11-16</p>
+								<p><span>{{item.nm}}</span><span>{{item.sc}}</span></p>
+								<p>{{item.enm}}</p>
+								<p>{{item.cat}}</p>
+								<p>{{item.rt}}</p>
 							</div>
 						</li>
-						<li>
-							<div class="img"><img src="images/movie_1.jpg"></div>
-							<div class="info">
-								<p><span>无名之辈</span><span>8.5</span></p>
-								<p>A Cool Fish</p>
-								<p>剧情,喜剧,犯罪</p>
-								<p>2018-11-16</p>
-							</div>
-						</li>
+						
 					</ul>
 				</div>
 			</div>
 </template>
 <script>
 export default {
-    
+	data() {
+		return {
+			message:'',
+			moviesList:[]
+		}
+	},
+	name:'search',
+	methods: {
+     // 1. 定义终止请求方法
+       cancelRequest() {
+          if (typeof this.source === 'function') {
+             this.source('终止请求!')
+	  }
+	  }
+	},
+	watch: {//在这不能用mouted生命周期了因为是从输入框中来获取参数
+		message(value){
+				var that=this
+				this.cancelRequest()
+				this.axios.get('/api/searchList?cityId=10',{params:{
+				kw:value
+			},
+			    cancelToken: new this.axios.CancelToken( function executor(c) {
+                that.source = c
+		 })
+		 })
+			.then(result=>{
+				let msg =result.data.msg;
+				let movies=result.data.data.movies;
+				if(msg&&movies){
+					this.moviesList=result.data.data.movies.list
+				}
+			}).catch(err => {
+         if (err) {
+            if (this.axios.isCancel(err)) {
+               // 终止多次请求 请求取消 返回取消后的信息
+               console.log('请求取消', err.message)
+            } else {
+               // 服务端数据异常
+               console.log('没有搜索到数据哦')
+               this.list = []
+            }
+         }
+      })
+			
+			
+		}	
+	}
+
+	
 }
 </script>
 

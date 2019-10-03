@@ -1,97 +1,71 @@
 <template>
     <div class="cinema_body">
 				<ul>
-					<li>
+					<li v-for="item in cinemaList" :key="item.id">
 						<div>
-							<span>大地影院(澳东世纪店)</span>
-							<span class="q"><span class="price">22.9</span> 元起</span>
+							<span>{{item.nm}})</span>
+							<span class="q"><span class="price">{{item.sellPrice}}</span> 元起</span>
 						</div>
 						<div class="address">
-							<span>金州区大连经济技术开发区澳东世纪3层</span>
-							<span>1763.5km</span>
+							<span>{{item.addr}}</span>
+							<span>{{item.distance}}</span>
 						</div>
 						<div class="card">
-                			<div>小吃</div>
-                			<div>折扣卡</div>
+                			<div v-for="(num,key) in item.tag" :key="key" v-show="num===1"
+							:class="key | classCard">{{key | formatCard }}</div>
        					</div>
-					</li>
-					<li>
-						<div>
-							<span>大地影院(澳东世纪店)</span>
-							<span class="q"><span class="price">22.9</span> 元起</span>
-						</div>
-						<div class="address">
-							<span>金州区大连经济技术开发区澳东世纪3层</span>
-							<span>1763.5km</span>
-						</div>
-						<div class="card">
-                			<div>小吃</div>
-                			<div>折扣卡</div>
-       					</div>
-					</li>
-					<li>
-						<div>
-							<span>大地影院(澳东世纪店)</span>
-							<span class="q"><span class="price">22.9</span> 元起</span>
-						</div>
-						<div class="address">
-							<span>金州区大连经济技术开发区澳东世纪3层</span>
-							<span>1763.5km</span>
-						</div>
-						<div class="card">
-                			<div>小吃</div>
-                			<div>折扣卡</div>
-       					</div>
-					</li>
-					<li>
-						<div>
-							<span>大地影院(澳东世纪店)</span>
-							<span class="q"><span class="price">22.9</span> 元起</span>
-						</div>
-						<div class="address">
-							<span>金州区大连经济技术开发区澳东世纪3层</span>
-							<span>1763.5km</span>
-						</div>
-						<div class="card">
-                			<div>小吃</div>
-                			<div>折扣卡</div>
-       					</div>
-					</li>
-					<li>
-						<div>
-							<span>大地影院(澳东世纪店)</span>
-							<span class="q"><span class="price">22.9</span> 元起</span>
-						</div>
-						<div class="address">
-							<span>金州区大连经济技术开发区澳东世纪3层</span>
-							<span>1763.5km</span>
-						</div>
-						<div class="card">
-                			<div>小吃</div>
-                			<div>折扣卡</div>
-       					</div>
-					</li>
-					<li>
-						<div>
-							<span>大地影院(澳东世纪店)</span>
-							<span class="q"><span class="price">22.9</span> 元起</span>
-						</div>
-						<div class="address">
-							<span>金州区大连经济技术开发区澳东世纪3层</span>
-							<span>1763.5km</span>
-						</div>
-						<div class="card">
-                			<div>小吃</div>
-                			<div>折扣卡</div>
-       					</div>
-					</li>
+					</li>			
 				</ul>
 			</div>
 </template>
 
 <script>
 export default {
-    name:'clist'
+	data() {
+		return {
+		cinemaList:[]
+		}
+	},
+	name:'clist',
+	mounted(){
+		this.axios.get('/api/cinemaList?cityId=10')
+		.then(result=>{
+			let msg =result.data.msg
+			if(msg==='ok'){
+				this.cinemaList=result.data.data.cinemas
+			}
+		})
+	},
+	filters:{
+		formatCard(key){
+			let card = [
+				{key:'allowRefund',value:'可改签'},
+				{key:'endorse',value:'可退'},
+				{key:'snack',value:'小吃'},
+				{key:'sell',value:'折扣卡'}
+			];
+			for (let i = 0; i < card.length; i++) {//匹配传入的key来返回渲染上去的字
+				if (card[i].key===key) {
+					return card[i].value
+				}
+			}
+				return ''
+		},
+		classCard(key){
+			let card = [
+				{key:'allowRefund',value:'bl'},
+				{key:'endorse',value:'bl'},
+				{key:'snack',value:'or'},
+				{key:'sell',value:'or'}
+			];
+			for (let i = 0; i < card.length; i++) {//匹配传入的key来返回渲染上去的字
+				if (card[i].key===key) {
+					return card[i].value
+				}
+			}
+				return ''
+		}
+	}
 }
 </script>
 
@@ -103,7 +77,7 @@ export default {
 .cinema_body .q{ font-size: 11px; color:#f03d37;}
 .cinema_body .price{ font-size: 18px;}
 .cinema_body .address{ font-size: 13px; color:#666;}
-.cinema_body .address span:nth-of-type(2){ float:right; }
+.cinema_body .address span:nth-of-type(2){ float:right;  }
 .cinema_body .card{ display: flex;}
 .cinema_body .card div{ padding: 0 3px; height: 15px; line-height: 15px; border-radius: 2px; color: #f90; border: 1px solid #f90; font-size: 13px; margin-right: 5px;}
 .cinema_body .card div.or{ color: #f90; border: 1px solid #f90;}
