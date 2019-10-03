@@ -17,8 +17,8 @@
        <keep-alive>
           <router-view></router-view>
         </keep-alive>
-    <tabBar></tabBar>
     </div>
+     <tabBar></tabBar>
     </div>
 </template>
 

@@ -3,7 +3,7 @@ export default {
     component:()=>import('@/components/Movie'),
     children:[
         {
-            path:'/',
+            path:'/movie',
             redirect:'nowplaying'
         },
         {

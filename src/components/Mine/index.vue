@@ -1,23 +1,23 @@
 <template>
 <div id="main" >
     <maoyanhead title="My Neko"></maoyanhead>
-    <div>
-        hello mine
-    </div>
      <div id="content">
-    <tabBar></tabBar>
+     <login></login>
     </div>
+    <tabBar></tabBar>
     </div>
 </template>
 
 <script>
 import header from '../Header'
 import tabBar from '../TabBar'
+import login  from '../subcomponents/login'
 export default {
     name:'mine',
      components:{
    'maoyanhead':header,
-   tabBar
+   tabBar,
+   login
   }
 }
 </script>
