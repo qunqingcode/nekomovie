@@ -25,10 +25,49 @@
 <script>
 import header from '../Header'
 import tabBar from '../TabBar'
+import { MessageBox } from '../js'
+
 export default {
      components:{
    'maoyanhead':header,
    tabBar
+  },
+  mounted(){
+    //获取定位
+    this.axios.get('/api/getLocation')
+    .then(result=>{
+      let msg = result.data.msg
+      if(msg==='ok'){
+        let nm = result.data.data.nm
+        let id = result.data.data.id||1
+        console.log
+        if(this.$store.state.city.id==id){return}
+        setTimeout(()=>{
+          MessageBox({
+            title: '定位',
+            content:result.data.data.nm||'定位失败',
+            cancel:'取消',
+            def:'默认',
+            ok:'切换',
+            handleCancel(){
+            },
+            handledef(){
+              window.localStorage.setItem('nownm','北京')
+              window.localStorage.setItem('nowid',1)
+              window.location.reload()
+            },
+            handleOk(){
+              window.localStorage.setItem('nownm',nm)
+              window.localStorage.setItem('nowid',id)
+              window.location.reload()
+            }
+          });
+        },3000)
+      
+      }
+ 
+    })
+    
   }
 }
 </script>
