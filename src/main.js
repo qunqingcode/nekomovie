@@ -6,6 +6,10 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import vueaxios from 'vue-axios'
+import Scroller from './components/subcomponents/scroller'
+import Loading from './components/subcomponents/loading'
+Vue.component('Scroller',Scroller)
+Vue.component('Loading',Loading)
 Vue.use(vueaxios,axios)
 Vue.config.productionTip = false
 Vue.filter('setWH',(url,arg)=>{
