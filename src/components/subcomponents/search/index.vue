@@ -44,7 +44,7 @@ export default {
 		message(value){
 				var that=this
 				this.cancelRequest()
-				this.axios.get('/api/searchList?cityId=10',{params:{
+				this.axios.get('/api/searchList?cityId='+this.$store.state.city.id,{params:{
 				kw:value
 			},
 			    cancelToken: new this.axios.CancelToken( function executor(c) {
@@ -57,7 +57,7 @@ export default {
 				if(msg&&movies){
 					this.moviesList=result.data.data.movies.list
 				}
-			}).catch(err => {
+			}).catch(err =>{
          if (err) {
             if (this.axios.isCancel(err)) {
                // 终止多次请求 请求取消 返回取消后的信息
