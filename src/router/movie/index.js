@@ -22,6 +22,26 @@ export default {
             path:'search',
             component:()=>import('@/components/subcomponents/search')
         },
+        {
+            path:'detail/1/:movieid',
+            components:{
+                default:()=>import('@/components/subcomponents/nowPlaying'),
+                detail:()=>import('@/components/Movie/detail.vue')
+            },
+            props:{
+                detail:true
+            }
+        },
+        {
+            path:'detail/2/:movieid',
+            components:{
+                default:()=>import('@/components/subcomponents/commingSoon'),
+                detail:()=>import('@/components/Movie/detail.vue')
+            },
+            props:{
+                detail:true
+            }
+        }
        
     ]
 }
