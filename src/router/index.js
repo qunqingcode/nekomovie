@@ -6,6 +6,8 @@ import cinemaRouter from './cinema'
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',
+  base:'neko',
   routes: [
     
     movieRouter,

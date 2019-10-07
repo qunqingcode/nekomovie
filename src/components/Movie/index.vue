@@ -41,7 +41,6 @@ export default {
       if(msg==='ok'){
         let nm = result.data.data.nm
         let id = result.data.data.id||1
-        console.log
         if(this.$store.state.city.id==id){return}
         setTimeout(()=>{
           MessageBox({
@@ -53,9 +52,9 @@ export default {
             handleCancel(){
             },
             handledef(){
-              window.localStorage.setItem('nownm','北京')
+                window.localStorage.setItem('nownm','北京')
               window.localStorage.setItem('nowid',1)
-              window.location.reload()
+               window.location.reload()
             },
             handleOk(){
               window.localStorage.setItem('nownm',nm)
